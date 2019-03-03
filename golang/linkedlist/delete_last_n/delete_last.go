@@ -10,21 +10,21 @@ type LinkedList struct {
 	size int
 }
 
-func DeleteLastButN(list *LinkedList, n int) {
+func (list *LinkedList) DeleteLastButN(n int) {
 	if n < 0 || n > list.size {
 		return
 	}
 
 	first := list.head
-	for i := 1; i < n; i++ {
+	for i := 0; i < n; i++ {
 		first = first.Next
 	}
 
 	second := list.head
-	for first != nil {
+	for first.Next != nil {
 		first = first.Next
 		second = second.Next
 	}
-
 	second.Next = second.Next.Next
+	list.size--
 }
