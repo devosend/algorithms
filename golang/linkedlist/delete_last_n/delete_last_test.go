@@ -20,20 +20,17 @@ func TestListDeleteLast(t *testing.T) {
 
 	list.DeleteLastButN(2)
 	if list.size != 4 {
-		t.FailNow()
-		t.Log("Failed Not Expected Size")
+		t.Fatal("Failed Not Expected Size")
 	}
 	curr := list.head
 	for i := 1; i < 5; i++ {
 		if i == 4 {
 			if curr.Val != 5 {
-				t.FailNow()
-				t.Log("Failed.")
+				t.Fatal("Failed.")
 			}
 		} else {
 			if curr.Val != i {
-				t.FailNow()
-				t.Log("Failed.")
+				t.Fatal("Failed.")
 			}
 		}
 		curr = curr.Next
