@@ -14,7 +14,7 @@ func NewQueue() LinkQueue {
 	return LinkQueue{nil, nil}
 }
 
-func (this *LinkQueue) Push(item int) {
+func (this *LinkQueue) EnQueue(item int) {
 	node := Node{item, nil}
 	if this.tail == nil {
 		this.tail = &node
@@ -25,7 +25,7 @@ func (this *LinkQueue) Push(item int) {
 	}
 }
 
-func (this *LinkQueue) Pop() *Node {
+func (this *LinkQueue) DeQueue() *Node {
 	if this.head == nil {
 		return nil
 	}

@@ -13,7 +13,7 @@ func NewQueue(n int) ArrayQueue {
 }
 
 //入队
-func (this *ArrayQueue) Push(item int) bool {
+func (this *ArrayQueue) EnQueue(item int) bool {
 	if this.tail >= this.capacity {
 		return false
 	}
@@ -23,7 +23,7 @@ func (this *ArrayQueue) Push(item int) bool {
 }
 
 //出队
-func (this *ArrayQueue) Pop() int {
+func (this *ArrayQueue) DeQueue() int {
 	if this.head >= this.tail {
 		return ^int(^uint(0) >> 1)
 	}

@@ -13,7 +13,7 @@ func NewQueue(n int) CircularQueue {
 	return CircularQueue{make([]int, n), n, 0, 0}
 }
 
-func (this *CircularQueue) push(item int) bool {
+func (this *CircularQueue) EnQueue(item int) bool {
 	if (this.tail+1)%this.n == this.head {
 		return false
 	}
@@ -22,7 +22,7 @@ func (this *CircularQueue) push(item int) bool {
 	return true
 }
 
-func (this *CircularQueue) pop() int {
+func (this *CircularQueue) DeQueue() int {
 	if this.tail == this.head {
 		return ^int(^uint(0) >> 1)
 	}
