@@ -13,12 +13,13 @@ func NewQueue(n int) ArrayQueue {
 }
 
 //入队
-func (this *ArrayQueue) Push(item int) {
+func (this *ArrayQueue) Push(item int) bool {
 	if this.tail >= this.capacity {
-		return
+		return false
 	}
 	this.data[this.tail] = item
 	this.tail += 1
+	return true
 }
 
 //出队
