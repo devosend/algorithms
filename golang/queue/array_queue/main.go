@@ -8,12 +8,12 @@ type ArrayQueue struct {
 }
 
 // 初始化一个队列
-func newQueue(n int) ArrayQueue {
+func NewQueue(n int) ArrayQueue {
 	return ArrayQueue{make([]int, n), n, 0, 0}
 }
 
 //入队
-func (this *ArrayQueue) push(item int) {
+func (this *ArrayQueue) Push(item int) {
 	if this.tail >= this.capacity {
 		return
 	}
@@ -22,7 +22,7 @@ func (this *ArrayQueue) push(item int) {
 }
 
 //出队
-func (this *ArrayQueue) pop() int {
+func (this *ArrayQueue) Pop() int {
 	if this.head >= this.tail {
 		return ^int(^uint(0) >> 1)
 	}
