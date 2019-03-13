@@ -16,9 +16,11 @@ func quickSort(nums []int, start int, end int) {
 func partition(nums []int, start int, end int) int {
 	i := start
 	point := nums[end]
-	for j := i + 1; j < end; j++ {
+	for j := i; j < end; j++ {
 		if nums[j] < point {
-			nums[i], nums[j] = nums[j], nums[i]
+			if i != j {
+				nums[i], nums[j] = nums[j], nums[i]
+			}
 			i++
 		}
 	}
