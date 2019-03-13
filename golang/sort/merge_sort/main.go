@@ -7,20 +7,22 @@ func merge(nums []int, start int, mid int, end int) {
 	k := 0
 	for ; i <= mid && j <= end; k++ {
 		if nums[i] <= nums[j] {
-			arr = append(arr, nums[k])
+			arr[k] = nums[i]
 			i++
 		} else {
-			arr = append(arr, nums[j+k])
+			arr[k] = nums[j]
 			j++
 		}
 	}
 
 	for ; i <= mid; i++ {
-		arr = append(arr, nums[i])
+		arr[k] = nums[i]
+		k++
 	}
 
 	for ; j <= end; j++ {
-		arr = append(arr, nums[j])
+		arr[k] = nums[j]
+		k++
 	}
 
 	copy(nums[start:end+1], arr)
@@ -37,10 +39,9 @@ func mergeSort(nums []int, start int, end int) {
 	merge(nums, start, mid, end)
 }
 
-func MergeSort(nums []int) []int {
+func MergeSort(nums []int) {
 	if len(nums) <= 1 {
-		return nums
+		return
 	}
 	mergeSort(nums, 0, len(nums)-1)
-	return nums
 }
