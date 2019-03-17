@@ -46,7 +46,7 @@ func (this *SkipList) Find(val int) *SkipNode {
 
 	p := this.head
 	level := this.level
-	for i := level - 1; i >= 0; i++ {
+	for i := level - 1; i >= 0; i-- {
 		for p.forwards[i] != nil {
 			if p.forwards[i].val == val {
 				return p.forwards[i]
@@ -61,10 +61,12 @@ func (this *SkipList) Find(val int) *SkipNode {
 }
 
 func (this *SkipList) Insert(val int) bool {
+	level := GetNewNodeLevel()
 	node := NewSkipNode(val)
+	node.level = level
 	p := this.head
 	update := make([]*SkipNode, MAX_LEVEL, MAX_LEVEL)
-	for i := this.level - 1; i >= 0; i-- {
+	for i := level - 1; i >= 0; i-- {
 		for p.forwards[i] != nil {
 			if p.forwards[i].val == val {
 				return false
@@ -80,7 +82,6 @@ func (this *SkipList) Insert(val int) bool {
 		}
 	}
 
-	level := GetNewNodeLevel()
 	for i := 0; i < level; i++ {
 		node.forwards[i] = update[i].forwards[i]
 		update[i].forwards[i] = node
@@ -109,13 +110,16 @@ func (this *SkipList) Delete(val int) bool {
 		}
 	}
 
-	p = update[0].forwards[0]
+	if update[0].forwards[0] == nil || update[0].forwards[0].val != val {
+		return true
+	}
+
 	for i := 0; i < this.level; i++ {
-		if update[i] == this.head && p.forwards[i] == nil {
-			this.level = i
-		}
-		if update[i] != this.head {
+		if update[i].forwards[i] != nil && update[i].forwards[i].val == val {
 			update[i].forwards[i] = update[i].forwards[i].forwards[i]
+		}
+		if update[i] == this.head && update[i].forwards[i] == nil {
+			this.level = i
 		}
 	}
 	this.length--
