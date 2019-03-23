@@ -6,11 +6,11 @@ type Node struct {
 	right *Node
 }
 
-func newTree(val int) *Node {
+func NewTree(val int) *Node {
 	return &Node{val, nil, nil}
 }
 
-func (this *Node) insert(val int) bool {
+func (this *Node) Insert(val int) bool {
 	p := this
 	node := &Node{val, nil, nil}
 	for p != nil {
@@ -26,12 +26,13 @@ func (this *Node) insert(val int) bool {
 				p.right = node
 				return true
 			}
+			p = p.right
 		}
 	}
 	return false
 }
 
-func (this *Node) find(val int) *Node {
+func (this *Node) Find(val int) *Node {
 	p := this
 	for p != nil {
 		if val == p.data {
@@ -46,7 +47,7 @@ func (this *Node) find(val int) *Node {
 	return nil
 }
 
-func (this *Node) delete(val int) bool {
+func (this *Node) Delete(val int) bool {
 	p := this
 	parent := this
 	for p != nil && p.data != val {
@@ -88,14 +89,23 @@ func (this *Node) delete(val int) bool {
 		}
 		return true
 	}
-
-	min := p
+	min := p.right
 	minParent := p
-	for min != nil {
+	for min.left != nil {
 		minParent = min
 		min = min.left
 	}
+
 	p.data = min.data
-	minParent.left = nil
+	if min.right != nil {
+		if min == minParent.right {
+			minParent.right = min.right
+		} else {
+			minParent.left = min.right
+		}
+	} else {
+		minParent.left = nil
+	}
+
 	return true
 }
